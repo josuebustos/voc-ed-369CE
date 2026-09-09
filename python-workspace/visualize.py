@@ -89,7 +89,7 @@ Plots proper motion along Right Ascension (pmRA) versus Declination (pmDE), colo
 # plt.show()
 
 """
-Kiel Diagram ($T_{\text{eff}}$ vs. $\log g$)
+Kiel Diagram ($T_{text{eff}}$ vs. log g$)
 Plots effective temperature against surface gravity colored by metallicity ([Fe/H]) to inspect stellar populations.
 """
 
@@ -185,24 +185,26 @@ Overlays proper motion vectors (pmRA, pmDE) as arrows on celestial coordinates (
 
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
 
-df = pd.read_csv("SEIP_data.csv")
+df = pd.read_csv('SEIP_data.csv')
 
-plt.figure(figsize=(9, 6))
+# Annotate figure explicitly to clear static type warnings
+fig: Figure = plt.figure(figsize=(9, 6))
+
 q = plt.quiver(
-    df["ra"],
-    df["dec"],
-    df["pmRA"],
-    df["pmDE"],
-    df["Gmag"],
-    cmap="viridis",
-    scale=500,
-    width=0.003,
+    df['ra'], df['dec'], 
+    df['pmRA'], df['pmDE'], 
+    df['Gmag'], 
+    cmap='viridis', 
+    scale=500, 
+    width=0.003
 )
-plt.colorbar(q, label="G Magnitude [mag]")
-plt.xlabel("Right Ascension (RA) [deg]")
-plt.ylabel("Declination (DEC) [deg]")
-plt.title("Proper Motion Vectors across Sky Position (RA, DEC)")
-plt.grid(True, linestyle="--", alpha=0.5)
+
+plt.colorbar(q, label='G Magnitude [mag]')
+plt.xlabel('Right Ascension (RA) [deg]')
+plt.ylabel('Declination (DEC) [deg]')
+plt.title('Proper Motion Vectors across Sky Position (RA, DEC)')
+plt.grid(True, linestyle='--', alpha=0.5)
 plt.tight_layout()
 plt.show()
